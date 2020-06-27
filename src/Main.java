@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.regex.*;
 
 public class Main
 {
@@ -31,12 +32,25 @@ public class Main
 	}
 	
 	static boolean renameFiles(String path, String fileName) {
-		ArrayList<File> listaFile = getListaFile(path, fileName);
+		File [] listaFile = new File(path).listFiles();
+		for (File file : listaFile){
+			String imageName = file.getName();
+			String[] numberFromPicName = getNumberFromPicName(imageName);
+		}
+		
 		return true;
 	}
 	
-	static ArrayList<File> getListaFile(String path, String fileName) {
+	static String[] getNumberFromPicName(String imageName){
+		ArrayList<String> l = new ArrayList<String>();
+		Pattern p = Pattern.compile("-?\\d+");
+		Matcher m = p.matcher(imageName);
+		while (m.find()) {
+			l.add(m.group());
+		}
 		
-		return null;
+		return l.toArray(new String[l.size()]);
 	}
+	
+	
 }
